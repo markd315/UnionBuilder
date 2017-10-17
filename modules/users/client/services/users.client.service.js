@@ -150,6 +150,12 @@
       update: {
         method: 'PUT'
       }
+      approve: {
+        method: 'PUT'
+      }
+      disapprove: {
+        method: 'DELETE'
+      }
     });
   }
 }());

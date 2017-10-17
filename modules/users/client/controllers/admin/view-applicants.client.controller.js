@@ -18,7 +18,7 @@
 
     vm.removeApplicant = function (applicant) {
       var unapprovedUser = vm.unapprovedUsers.indexOf(applicant);
-      ApplicantsService.delete(123);
+      AdminService.disapprove(unapprovedUser);
       vm.unapprovedUsers.splice(unapprovedUser, 1);
     };
 
