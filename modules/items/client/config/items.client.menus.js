@@ -17,7 +17,7 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'items', {
-      title: 'List Items',
+      title: 'Manage Items',
       state: 'items.list',
       roles: ['admin', 'superta', 'ta', 'technician']
     });

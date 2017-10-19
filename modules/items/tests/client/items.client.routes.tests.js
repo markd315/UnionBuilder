@@ -56,17 +56,63 @@
           expect(liststate.templateUrl).toBe('/modules/items/client/views/list-items.client.view.html');
         });
       });
-
-      describe('View Route', function () {
-        var viewstate,
+      
+      describe('Create Route', function () {
+        var createstate,
           ItemsController,
           mockItem;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          viewstate = $state.get('items.view');
-          $templateCache.put('/modules/items/client/views/view-item.client.view.html', '');
+          createstate = $state.get('items.create');
+          $templateCache.put('/modules/items/client/views/form-item.client.view.html', '');
 
-          // create mock item
+          // Create mock item
+          mockItem = new ItemsService();
+
+          // Initialize Controller
+          ItemsController = $controller('ItemsController as vm', {
+            $scope: $scope,
+            itemResolve: mockItem
+          });
+        }));
+
+        it('Should have the correct URL', function () {
+          expect(createstate.url).toEqual('/create');
+        });
+
+        it('Should have a resolve function', function () {
+          expect(typeof createstate.resolve).toEqual('object');
+          expect(typeof createstate.resolve.itemResolve).toEqual('function');
+        });
+
+        it('should respond to URL', inject(function ($state) {
+          expect($state.href(createstate)).toEqual('/items/create');
+        }));
+
+        it('should attach an item to the controller scope', function () {
+          expect($scope.vm.item._id).toBe(mockItem._id);
+          expect($scope.vm.item._id).toBe(undefined);
+        });
+
+        it('Should not be abstract', function () {
+          expect(createstate.abstract).toBe(undefined);
+        });
+
+        it('Should have templateUrl', function () {
+          expect(createstate.templateUrl).toBe('/modules/items/client/views/form-item.client.view.html');
+        });
+      });
+
+      describe('Edit Route', function () {
+        var editstate,
+          ItemsController,
+          mockItem;
+
+        beforeEach(inject(function ($controller, $state, $templateCache) {
+          editstate = $state.get('items.edit');
+          $templateCache.put('/modules/items/client/views/form-item.client.view.html', '');
+
+          // Create mock items
           mockItem = new ItemsService({
             _id: '525a8422f6d0f87f0e407a33',
             title: 'An Item about MEAN',
@@ -81,18 +127,18 @@
         }));
 
         it('Should have the correct URL', function () {
-          expect(viewstate.url).toEqual('/:itemId');
+          expect(editstate.url).toEqual('/:itemId/edit');
         });
 
         it('Should have a resolve function', function () {
-          expect(typeof viewstate.resolve).toEqual('object');
-          expect(typeof viewstate.resolve.itemResolve).toEqual('function');
+          expect(typeof editstate.resolve).toEqual('object');
+          expect(typeof editstate.resolve.itemResolve).toEqual('function');
         });
 
         it('should respond to URL', inject(function ($state) {
-          expect($state.href(viewstate, {
+          expect($state.href(editstate, {
             itemId: 1
-          })).toEqual('/items/1');
+          })).toEqual('/items/1/edit');
         }));
 
         it('should attach an item to the controller scope', function () {
@@ -100,11 +146,11 @@
         });
 
         it('Should not be abstract', function () {
-          expect(viewstate.abstract).toBe(undefined);
+          expect(editstate.abstract).toBe(undefined);
         });
 
         it('Should have templateUrl', function () {
-          expect(viewstate.templateUrl).toBe('/modules/items/client/views/view-item.client.view.html');
+          expect(editstate.templateUrl).toBe('/modules/items/client/views/form-item.client.view.html');
         });
       });
 

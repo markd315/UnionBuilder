@@ -42,7 +42,7 @@ exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   //If a user is not yet an approved user, do not allow any changes to be made on the database.
-  if(!req.user || !req.user.approvedStatus || req.user.approvedStatus != true) {
+  if(!req.user || !req.user.approvedStatus) {
     return res.status(403).json({
       message: 'User is not yet approved for database changes (check attribute approvedStatus)'
     });

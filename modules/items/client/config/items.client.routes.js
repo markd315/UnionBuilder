@@ -20,16 +20,29 @@
         controller: 'ItemsListController',
         controllerAs: 'vm'
       })
-      .state('items.view', {
-        url: '/:itemId',
-        templateUrl: '/modules/items/client/views/view-item.client.view.html',
+      .state('items.create', {
+        url: '/create',
+        templateUrl: '/modules/items/client/views/form-item.client.view.html',
         controller: 'ItemsController',
         controllerAs: 'vm',
+        data: {
+          roles: ['ta', 'technician', 'superta', 'admin']
+        },
+        resolve: {
+          itemResolve: newItem
+        }
+      })
+      .state('items.edit', {
+        url: '/:itemId/edit',
+        templateUrl: '/modules/items/client/views/form-item.client.view.html',
+        controller: 'ItemsController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['ta', 'technician', 'superta', 'admin'],
+          pageTitle: '{{ itemResolve.title }}'
+        },
         resolve: {
           itemResolve: getItem
-        },
-        data: {
-          pageTitle: '{{ itemResolve.title }}'
         }
       });
   }
@@ -40,5 +53,11 @@
     return ItemsService.get({
       itemId: $stateParams.itemId
     }).$promise;
+  }
+  
+  newItem.$inject = ['ItemsService'];
+
+  function newItem(ItemsService) {
+    return new ItemsService();
   }
 }());
