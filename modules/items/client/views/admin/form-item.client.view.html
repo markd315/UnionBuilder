@@ -27,7 +27,7 @@
         </a>
         <div class = "category-group" show-errors>
         <label for="category">category</label>
-          <select name="category" id="category" name="category" class="form-control" ng-model="vm.category" placeholder="category">
+          <select name="category" id="category" name="category" class="form-control" ng-model="vm.categories" placeholder="category">
             <option ng-repeat="x in category">{{x}}</option>
           </select>
          <a ng-show="vm.item._id" class="btn btn-primary" ng-click="vm.addCategory()">
