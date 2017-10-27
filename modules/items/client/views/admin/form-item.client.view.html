@@ -17,7 +17,7 @@
             <p class="help-block error-text" ng-message="required">Item title is required.</p>
           </div>
         </div>
-        <div class = "module-group" show-errors>
+        <div class = "module-group">
         <label for="modules">Modules</label>
           <select name="module" id="module" name="module" class="form-control" ng-model="vm.modules" placeholder="module">
             <option ng-repeat="x in modules">{{x}}</option>
@@ -25,7 +25,7 @@
          <a ng-show="vm.item._id" class="btn btn-primary" ng-click="vm.addModule()">
           <i class="glyphicon glyphicon-plus"></i>
         </a>
-        <div class = "category-group" show-errors>
+        <div class = "category-group">
         <label for="category">Categories</label>
           <select name="category" id="category" name="category" class="form-control" ng-model="vm.categories" placeholder="category">
             <option ng-repeat="x in category">{{x}}</option>
