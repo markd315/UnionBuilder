@@ -15,7 +15,8 @@ var app,
   agent,
   credentials,
   user,
-  item;
+  item,
+  techCred;
 
 /**
  * Item routes tests
@@ -37,7 +38,8 @@ describe('Item CRUD tests', function () {
       password: 'M3@n.jsI$Aw3$0m3',
       approvedStatus: true
     };
-
+      
+  
     // Create a new user
     user = new User({
       firstName: 'Full',
@@ -62,6 +64,16 @@ describe('Item CRUD tests', function () {
       })
       .catch(done);
   });
+    
+     beforeEach(function (done){
+       //Creating credentials for the technician
+       techCred = {
+           usernameOrEmail: 'technician@gmail.com',
+           password: 'dummyCEN3031-10a',
+           approvedStatus: true
+       };
+   });
+
 
   it('should not be able to save an item if logged in without the "admin" role', function (done) {
     agent.post('/api/auth/signin')
@@ -113,7 +125,47 @@ describe('Item CRUD tests', function () {
           });
       });
   });
+    
+//Technician Tests
+  it('should not be able to create a listing if a "technician" signed in',function(done){
+       
+      agent.post('/api/auth/signin')
+       .send(techCred)
+       .expect(200)
+       .end(function (signinErr, signinRes){
+          if (signinErr){
+              return done(signinErr);
+          }
+          
+          agent.post('/api/items')
+            .send(item)
+            .expect(403)
+            .end(function (itemSaveErr, itemSaveRes){
+              done(itemSaveErr);
+          });
+      });
+  });
+    
+   it('should be able to delete an item if signed into the "technician" role', function (done) {
+    agent.post('/api/auth/signin')
+      .send(techCred)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
 
+        agent.delete('/api/items')
+          .send(item)
+          .expect(403)
+          .end(function (itemSaveErr, itemSaveRes) {
+            // Call the assertion callback
+            done(itemSaveErr);
+          });
+      });
+  });    
+//End Tecnician test
   it('should return proper error for single item with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id
     agent.get('/api/items/test')
@@ -148,7 +200,7 @@ describe('Item CRUD tests', function () {
           return done(signinErr);
         }
 
-        agent.post('/api/items')
+        agent.delete('/api/items')
           .send(item)
           .expect(403)
           .end(function (itemSaveErr, itemSaveRes) {
@@ -157,7 +209,7 @@ describe('Item CRUD tests', function () {
           });
       });
   });
-
+//Same framework for my test to make
   it('should not be able to delete an item if not signed in', function (done) {
     // Set item user
     item.user = user;

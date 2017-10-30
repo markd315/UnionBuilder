@@ -10,10 +10,14 @@ acl = new acl(new acl.memoryBackend());
 
 /**
  * Invoke Items Permissions
+ pull Technician out and make them only delete
+ make permissions as closed off as possible, admin gets everything and technician is only one to delete.
+ test with a technician account
  */
 exports.invokeRolesPolicies = function () {
+//Attempting to make it more closed off so specific roles handle functions    
   acl.allow([{
-    roles: ['admin', 'superta', 'technician'], //All should be able to create, read, update, and delete items.
+    roles: ['admin'], //Only the Admin  should be able to create, read, update, and delete items.
     allows: [{
       resources: '/api/items',
       permissions: '*'
@@ -29,10 +33,20 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/items/:itemId',
-      permissions: ['get', 'post', 'put'] //TA's can modify and create items but not delete them from the database.
+      permissions: ['get','post','put'] //TA's can modify and create items but not delete them from the database.
+    }]
+  }, 
+  {
+    roles: ['technician'],
+    allows: [{
+      resources: '/api/items',
+      permissions: ['get']
+    }, {
+      resources: '/api/items/:itemId',
+      permissions: ['get', 'delete'] //Technician deleteing items 
     }]
   }
-  ]);
+])
 };
 
 /**
