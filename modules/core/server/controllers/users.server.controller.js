@@ -1,6 +1,16 @@
 /* Dependencies */
 var mongoose = require('mongoose'), 
     User = require('../../../users/server/models/user.server.model.js');
+    //TODO redefine user schema
+//TODO fix User require.
+
+/*
+  In this file, you should use Mongoose queries in order to retrieve/add/remove/update users.
+  On an error you should send a 404 status code, as well as the error message. 
+  On success (aka no error), you should send the user(s) as JSON in the response.
+  HINT: if you are struggling with implementing these functions, refer back to this tutorial 
+  from assignment 3 https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+ */
 
 /* Create a user */
 exports.create = function(req, res) {
