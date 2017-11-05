@@ -36,6 +36,7 @@ exports.signup = function (req, res) {
       });
     } else {
       // Remove sensitive data before login
+      console.log("User role: " + user.roles);
       user.password = undefined;
       user.salt = undefined;
       res.status(200).send();
