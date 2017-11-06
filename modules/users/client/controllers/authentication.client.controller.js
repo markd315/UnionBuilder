@@ -33,8 +33,9 @@
 
         return false;
       }
-      console.log("User role: " + vm.credentials.roles);
+
       vm.credentials.roles = alterRole(vm.credentials.roles);
+
       UsersService.userSignup(vm.credentials)
         .then(onUserSignupSuccess)
         .catch(onUserSignupError);
