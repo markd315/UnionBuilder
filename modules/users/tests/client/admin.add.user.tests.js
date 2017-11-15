@@ -44,6 +44,13 @@
         	$httpBackend.whenGET('/modules/users/client/views/admin/add-user.client.view.html').respond(200);
 
 
+        	mockUser1 = new ApplicantsService({
+        		firstName: 'Bo',
+        		lastName: 'Jack',
+        		roles: ['ta'],
+        		approvedStatus: true
+        	})
+
 	        Authentication.user = {
 		        roles: ['admin'],
 		        approvedStatus: true
@@ -58,7 +65,13 @@
 	 	}))
 	});
 
-	//describe('')
+	describe('vm.signup() as signup', function () {
+
+		it('Should signup with correct credentials', inject(function (ApplicantsService){
+			$httpBackend.when('POST', '/api/users/add').respond(200, mockUser1);
+		}));
+
+	});
 
 
 });
