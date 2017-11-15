@@ -43,7 +43,22 @@
         	// Ignore parent template get on state transitions
         	$httpBackend.whenGET('/modules/users/client/views/admin/add-user.client.view.html').respond(200);
 
-	 	})
 
+	        Authentication.user = {
+		        roles: ['admin'],
+		        approvedStatus: true
+			};
+
+			AddUserController = $controller ('AddUserController as vm', {
+				$scope: $scope
+			});
+
+			// Spy on state go
+			spyOn($state, 'go');
+	 	}))
 	});
+
+	//describe('')
+
+
 });
