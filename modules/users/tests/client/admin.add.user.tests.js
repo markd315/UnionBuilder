@@ -71,6 +71,7 @@
 
 		it('Should not signup with no credentials', inject(function (ApplicantsService) {
 			$httpBackend.when('POST', '/api/users/add').respond(400, {message: 'Missing credentials'});
+			$httpBackend.flush();
 			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing credentials', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
 			expect($location.url()).toEqual('/admin/add');
 		}));
@@ -85,6 +86,7 @@
 			});
 
 			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing first name'});
+			$httpBackend.flush();
 			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing first name', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
 			expect($location.url()).toEqual('/admin/add');
 		}));
@@ -99,6 +101,7 @@
 			});
 
 			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing last name'});
+			$httpBackend.flush();
 			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing last name', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
 			expect($location.url()).toEqual('/admin/add');
 		}));
@@ -113,9 +116,27 @@
 			});
 
 			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing email'});
+			$httpBackend.flush();
 			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing email', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
 			expect($location.url()).toEqual('/admin/add');
 		}));
+
+		it('Should not signup with incorrect email', inject(function (ApplicantsService) {
+			mockUser2 = new ApplicantsService({
+				firstName: 'bo',
+				lastName: 'track',
+				roles: ['superta']
+				email: 'bojackgmailcom',
+				username: 'bojack',
+				approvedStatus: true
+			});
+
+			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Incorrect email'});
+			$httpBackend.flush();
+			expect(Notification.error).toHaveBeenCalledWith({ message: 'Incorrect email', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
+			expect($location.url()).toEqual('/admin/add');
+		}));
+
 
 		it('Should not signup with missing roles', inject(function (ApplicantsService) {
 			mockUser2 = new ApplicantsService({
@@ -127,12 +148,45 @@
 			});
 
 			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing roles'});
+			$httpBackend.flush();
 			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing roles', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
+			expect($location.url()).toEqual('/admin/add');
+		}));
+
+		it('Should not signup with missing username', inject(function (ApplicantsService) {
+			mockUser2 = new ApplicantsService({
+				firstName: 'bo',
+				lastName: 'track',
+				roles: ['superta'],
+				email: 'bojack@gmail.com',
+				approvedStatus: true
+			});
+
+			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing username'});
+			$httpBackend.flush();
+			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing username', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
+			expect($location.url()).toEqual('/admin/add');
+		}));
+
+		it('Should not signup with incorrect username credential', inject(function (ApplicantsService) {
+			mockUser2 = new ApplicantsService({
+				firstName: 'bo',
+				lastName: 'track',
+				roles: ['superta']
+				email: 'bojackgmailcom',
+				username: 'b',
+				approvedStatus: true
+			});
+
+			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Username not valid'});
+			$httpBackend.flush();
+			expect(Notification.error).toHaveBeenCalledWith({ message: 'Username not valid', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
 			expect($location.url()).toEqual('/admin/add');
 		}));
 
 		it('Should signup with correct credentials', inject(function (ApplicantsService) {
 			$httpBackend.when('POST', '/api/users/add').respond(200, mockUser1);
+			expect($location.url().toEqual('/admin/users'))
 		}));
 
 	});
