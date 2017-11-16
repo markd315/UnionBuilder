@@ -28,7 +28,7 @@
 
 	 	beforeEach(module(ApplicationConfiguration.applicationModuleName));
 
-	 	beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ApplicantsService_) {
+	 	beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ApplicantsService_, _Notification_) {
 	 		$scope = $rootScope.$new();
 
 	 		$httpBackend = _$httpBackend_;
@@ -48,8 +48,9 @@
         		firstName: 'Bo',
         		lastName: 'Jack',
         		roles: ['ta'],
+        		username: 'bojack',
         		approvedStatus: true
-        	})
+        	});
 
 	        Authentication.user = {
 		        roles: ['admin'],
@@ -67,7 +68,39 @@
 
 	describe('vm.signup() as signup', function () {
 
-		it('Should signup with correct credentials', inject(function (ApplicantsService){
+		it('Should not signup with no credentials', inject(function (ApplicantsService) {
+			$httpBackend.when('POST', '/api/users/add').respond(400, {message: 'Missing credentials'});
+			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing credentials', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
+			expect($location.url()).toEqual('/admin/add');
+		}));
+
+		it('Should not signup with missing first name', inject(function (ApplicantsService) {
+			mockUser2 = new ApplicantsService({
+				lastName: 'bo',
+				roles: ['superta'],
+				username: 'bojack',
+				approvedStatus: true
+			});
+
+			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing first name'});
+			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing first name', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
+			expect($location.url()).toEqual('/admin/add');
+		}));
+
+		it('Should not signup with missing last name', inject(function (ApplicantsService) {
+			mockUser2 = new ApplicantsService({
+				firstName: 'bo',
+				roles: ['superta'],
+				username: 'bojack',
+				approvedStatus: true
+			});
+
+			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing last name'});
+			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing last name', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
+			expect($location.url()).toEqual('/admin/add');
+		}));
+
+		it('Should signup with correct credentials', inject(function (ApplicantsService) {
 			$httpBackend.when('POST', '/api/users/add').respond(200, mockUser1);
 		}));
 
