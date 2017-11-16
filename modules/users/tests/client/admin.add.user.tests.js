@@ -103,8 +103,7 @@
 			expect($location.url()).toEqual('/admin/add');
 		}));
 
-
-		it('Should not signup with missing email name', inject(function (ApplicantsService) {
+		it('Should not signup with missing email', inject(function (ApplicantsService) {
 			mockUser2 = new ApplicantsService({
 				firstName: 'bo',
 				lastName: 'track',
@@ -118,17 +117,17 @@
 			expect($location.url()).toEqual('/admin/add');
 		}));
 
-		it('Should not signup with missing last name', inject(function (ApplicantsService) {
+		it('Should not signup with missing roles', inject(function (ApplicantsService) {
 			mockUser2 = new ApplicantsService({
 				firstName: 'bo',
-				roles: ['superta'],
+				lastName: 'track',
 				email: 'bojack@gmail.com',
 				username: 'bojack',
 				approvedStatus: true
 			});
 
-			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing last name'});
-			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing last name', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
+			$httpBackend.expectPOST('/api/users/add').respond(400, {message: 'Missing roles'});
+			expect(Notification.error).toHaveBeenCalledWith({ message: 'Missing roles', title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
 			expect($location.url()).toEqual('/admin/add');
 		}));
 
