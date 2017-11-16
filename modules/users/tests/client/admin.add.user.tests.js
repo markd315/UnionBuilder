@@ -53,6 +53,8 @@
         		approvedStatus: true
         	});
 
+        	mockUser2 = new ApplicantsService({});
+
 	        Authentication.user = {
 		        roles: ['admin'],
 		        approvedStatus: true
@@ -125,7 +127,7 @@
 			mockUser2 = new ApplicantsService({
 				firstName: 'bo',
 				lastName: 'track',
-				roles: ['superta']
+				roles: ['superta'],
 				email: 'bojackgmailcom',
 				username: 'bojack',
 				approvedStatus: true
@@ -172,7 +174,7 @@
 			mockUser2 = new ApplicantsService({
 				firstName: 'bo',
 				lastName: 'track',
-				roles: ['superta']
+				roles: ['superta'],
 				email: 'bojackgmailcom',
 				username: 'b',
 				approvedStatus: true
