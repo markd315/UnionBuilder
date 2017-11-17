@@ -18,8 +18,7 @@
         var comparator = vm.items[i];
         if(item.title == comparator.title && item.content == comparator.content && item.created == comparator.created && item.user == comparator.user && item.restockThreshold == comparator.restockThreshold && item.workingStatus == comparator.workingStatus && item.categories == comparator.categories && item.modules == comparator.modules){
         //In items array, minus some possible change to count.
-    	   console.log("inc" + inc);
-         item.createOrUpdate().then(successCallback).catch(errorCallback);
+    	   item.createOrUpdate().then(successCallback).catch(errorCallback);
          flag = true;
           break;
         }
@@ -30,6 +29,7 @@
     
     }
       function successCallback(res) {
+        console.log("inc" + inc);
         $state.go('items.list'); // should we send the User to the list or the updated Item's view?
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Item saved successfully!' });
       }
