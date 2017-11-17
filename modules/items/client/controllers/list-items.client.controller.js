@@ -11,5 +11,8 @@
     var vm = this;
 
     vm.items = ItemsService.query();
+    vm.increment = function(item, inc){
+    	item.count+=inc;
+    }
   }
 }());
