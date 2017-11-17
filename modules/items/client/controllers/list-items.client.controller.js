@@ -13,7 +13,8 @@
     vm.items = ItemsService.query();
     vm.cats = CategoriesService.query();
     vm.mods = ModulesService.query();
-
-  
+    vm.increment = function(item, inc){
+    	item.count+=inc;
+    }
   }
 }());
