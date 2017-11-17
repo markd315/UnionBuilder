@@ -10,7 +10,7 @@
   <div class="list-group" style="width: 100%">
     <table>
     <tr data-ng-repeat="item in vm.items"> 
-    <td span= "1" style="width: 76%;">
+    <td span= "1" style="width: 84%;">
     <a data-ui-sref="admin.items.edit({itemId: item._id})" class="list-group-item">
       <small class="list-group-item-text">
         Posted on
@@ -31,16 +31,16 @@
       <span ng-if="item.workingStatus" data-ng-bind="item.modules.workingStatus"></span>
     </a>
   </td>
-  <td span= "1" style="width: 6%;">
+  <td span= "1" style="width: 4%;">
     <a class="btn btn-danger" ng-click="vm.increment(item, -10)">-10</a>
   </td>
-  <td span= "1" style="width: 6%;">
+  <td span= "1" style="width: 4%;">
     <a class="btn btn-danger pull-right" ng-click="vm.increment(item, -1)">-1</a>
   </td>
-  <td span= "1" style="width: 6%;">
+  <td span= "1" style="width: 4%;">
     <a class="btn btn-success pull-right" ng-click="vm.increment(item, 1)">1</a>
   </td>
-  <td span= "1" style="width: 6%;">
+  <td span= "1" style="width: 4%;">
     <a class="btn btn-success pull-right" ng-click="vm.increment(item, 10)">10</a>
   </td>
   </tr>
