@@ -29,7 +29,6 @@
     
     }
       function successCallback(res) {
-        console.log("inc" + inc);
         $state.go('items.list'); // should we send the User to the list or the updated Item's view?
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Item saved successfully!' });
       }
