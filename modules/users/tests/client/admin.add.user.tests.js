@@ -1,8 +1,8 @@
+'use strict';
 (function () {
-	'use strict';
 
 	describe('AddUserController', function() {
-		var AuthenticationController,
+		var AuthenticationController = 0,
       		scope,
       		$httpBackend,
       		$stateParams,
