@@ -3,7 +3,7 @@
 
   angular
     .module('items')
-    .controller('ItemsAdminController', ItemsAdminController);
+    .controller('ItemsController', ItemsController);
 
     ItemsAdminController.$inject = ['$scope', '$state', '$window', 'itemResolve', 'CategoriesService', 'ModulesService', 'Authentication', 'Notification'];
 
