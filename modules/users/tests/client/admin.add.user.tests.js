@@ -1,8 +1,8 @@
-'use strict';
 (function () {
+	'use strict';
 
 	describe('AddUserController', function() {
-		var AuthenticationController = 0,
+		var AuthenticationController,
       		$scope,
       		$httpBackend,
       		$stateParams,
@@ -51,7 +51,7 @@
         		firstName: 'Bo',
         		lastName: 'track',
         		roles: ['ta'],
-        		email: "bojack@gmail.com",
+        		email: 'bojack@gmail.com',
         		username: 'bojack',
         		approvedStatus: true
         	});
@@ -63,7 +63,8 @@
 		        approvedStatus: true
 			};
 
-			AddUserController = $controller ('AddUserController as vm',{
+
+			AddUserController = $controller ('AddUserController as vm', {
 				$scope: $scope
 			});
 
