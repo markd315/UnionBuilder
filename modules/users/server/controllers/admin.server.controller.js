@@ -76,11 +76,9 @@ exports.adminsignup = function (req, res) {
           }
         }
         return str;
-      };
-  var tempPWord = genHexPassword(6);
-  user.password = tempPWord;//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
+  };
+  user.password = genHexPassword(6);//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
   user.salt = undefined;
-
   user.save(function (err) {
     if (err) {
       return res.status(422).send({
@@ -89,7 +87,7 @@ exports.adminsignup = function (req, res) {
     } else {
       // Remove sensitive data before login
       res.status(200).send();
-      mailer.sendCreation(user.email, user.firstName, user.username, tempPWord);
+      mailer.sendCreation(user.email, user.firstName, user.username, user.password);
       tempPWord = "";//Infosec reasons, we can at least delete it from memory.
     }
   });
