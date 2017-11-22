@@ -78,7 +78,6 @@ exports.adminsignup = function (req, res) {
         return str;
   };
   user.password = genHexPassword(6);//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
-  user.salt = undefined;
   user.save(function (err) {
     if (err) {
       return res.status(422).send({
