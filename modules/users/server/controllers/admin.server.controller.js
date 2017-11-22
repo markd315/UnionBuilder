@@ -57,13 +57,25 @@ exports.adminsignup = function (req, res) {
       });
     } else {
       // Remove sensitive data before login
-      user.password = 'Password123!';
+      var genHexPassword = function(length){
+        var str="";
+        for(var i=0; i<length; i++){
+          var toAdd = Math.random()*10.0;
+          str+=Math.floor(toAdd);
+        }
+        return str;
+      };
+      var tempPWord = genHexPassword(8);
+      user.password = tempPWord;
       user.salt = undefined;
       res.status(200).send();
-      mailer.sendCreation(user.email, user.firstName, user.username);
+      mailer.sendCreation(user.email, user.firstName, user.username, tempPWord);
+      
     }
   });
 };
+
+
 
 /**
  * Delete a user
