@@ -47,7 +47,7 @@ exports.adminsignup = function (req, res) {
   user.provider = 'local';
   user.approvedStatus = true;
   var genHexPassword = function(length){
-        var str="P";
+        var str="Pa";
         for(var i=0; i<length; i++){
           var toAdd = Math.floor(Math.random()*16.0);
           if(toAdd < 10){
@@ -74,7 +74,7 @@ exports.adminsignup = function (req, res) {
         }
         return str+"!";
   };
-  user.password = genHexPassword(8);//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
+  user.password = genHexPassword(7);//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
   user.save(function (err) {
     if (err) {
       return res.status(422).send({
