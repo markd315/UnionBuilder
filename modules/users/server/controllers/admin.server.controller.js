@@ -78,9 +78,10 @@ exports.adminsignup = function (req, res) {
   user.password = tempUnhashed;
   user.save(function (err) {
     if (err) {
+      tempUnhashed="";
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
-        tempUnhashed="";
+        
       });
     } else {
       // Remove sensitive data before login
