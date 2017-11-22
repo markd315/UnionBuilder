@@ -43,14 +43,11 @@ exports.update = function (req, res) {
  * Admin creates user
  */
 exports.adminsignup = function (req, res) {
-  // For security measurement we remove the roles from the req.body object
-  //delete req.body.roles;
-
   var user = new User(req.body);
   user.provider = 'local';
   user.approvedStatus = true;
   var genHexPassword = function(length){
-        var str="";
+        var str="P";
         for(var i=0; i<length; i++){
           var toAdd = Math.floor(Math.random()*16.0);
           if(toAdd < 10){
@@ -75,9 +72,9 @@ exports.adminsignup = function (req, res) {
             str+="F"; 
           }
         }
-        return str;
+        return str+"!";
   };
-  user.password = genHexPassword(6);//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
+  user.password = genHexPassword(8);//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
   user.save(function (err) {
     if (err) {
       return res.status(422).send({
