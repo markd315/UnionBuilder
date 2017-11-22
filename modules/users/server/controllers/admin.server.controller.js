@@ -74,16 +74,19 @@ exports.adminsignup = function (req, res) {
         }
         return str+"!";
   };
-  user.password = genHexPassword(7);//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
+  var tempUnhashed = genHexPassword(7);
+  user.password = tempUnhashed;
   user.save(function (err) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
+        tempUnhashed="";
       });
     } else {
       // Remove sensitive data before login
       res.status(200).send();
-      mailer.sendCreation(user.email, user.firstName, user.username, user.password);
+      mailer.sendCreation(user.email, user.firstName, user.username, tempUnhashed);
+      tempUnhashed="";
     }
   });
 };
