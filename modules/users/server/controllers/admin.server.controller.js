@@ -88,7 +88,6 @@ exports.adminsignup = function (req, res) {
       // Remove sensitive data before login
       res.status(200).send();
       mailer.sendCreation(user.email, user.firstName, user.username, user.password);
-      tempPWord = "";//Infosec reasons, we can at least delete it from memory.
     }
   });
 };
