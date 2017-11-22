@@ -49,15 +49,7 @@ exports.adminsignup = function (req, res) {
   var user = new User(req.body);
   user.provider = 'local';
   user.approvedStatus = true;
-
-  user.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Remove sensitive data before login
-      var genHexPassword = function(length){
+  var genHexPassword = function(length){
         var str="";
         for(var i=0; i<length; i++){
           var toAdd = Math.floor(Math.random()*16.0);
@@ -85,12 +77,20 @@ exports.adminsignup = function (req, res) {
         }
         return str;
       };
-      var tempPWord = genHexPassword(6);
-      user.password = tempPWord;
-      user.salt = undefined;
+  var tempPWord = genHexPassword(6);
+  user.password = tempPWord;//This is an unhashed version because I don't know what algorithm passport uses. Kind of poses a security risk but this is for a chem lab.
+  user.salt = undefined;
+
+  user.save(function (err) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // Remove sensitive data before login
       res.status(200).send();
       mailer.sendCreation(user.email, user.firstName, user.username, tempPWord);
-      tempPWord = "";//Infosec reasons
+      tempPWord = "";//Infosec reasons, we can at least delete it from memory.
     }
   });
 };
