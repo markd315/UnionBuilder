@@ -38,6 +38,13 @@ describe('Items E2E Tests:', function () {
     password: 'P@$$w0rd!!',
     roles: 'TA'
   };
+  var testItem = {
+  	title: 'title',
+  	module: 'thermodynamics',
+  	category: 'beaker',
+  	count: '5',
+  	content: 'yep'
+  };
 
   var signout = function () {
     // Make sure user is signed out first
@@ -66,6 +73,22 @@ describe('Items E2E Tests:', function () {
      browser.get('http://localhost:3001/items');
      element(by.id('add-item-btn')).click();
      expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/items/create');
+    });
+    it('Should navigate to create page upon button click', function () {
+     browser.get('http://localhost:3001/items');
+     element(by.id('add-item-btn')).click();
+     expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/items/create');
+    });
+    it('Should not create an item without a title', function () {
+     browser.get('http://localhost:3001/items/create');
+     element(by.css('button[type=submit]')).click();
+     expect(element.all(by.css('.error-text')).get(0).getText()).toBe('Item title is required.');
+    });
+    it('Should create an item with a title', function () {
+     browser.get('http://localhost:3001/items/create');
+     element(by.model('vm.item.title')).sendKeys(testItem.title);
+     element(by.css('button[type=submit]')).click();
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/items');
     });
   });
 });
