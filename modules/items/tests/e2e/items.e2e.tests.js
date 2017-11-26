@@ -45,6 +45,12 @@ describe('Items E2E Tests:', function () {
   	count: '5',
   	content: 'yep'
   };
+  var category = {
+  	title: 'title'
+  };
+  var module = {
+  	title: 'title'
+  };
 
   var signout = function () {
     // Make sure user is signed out first
@@ -65,9 +71,9 @@ describe('Items E2E Tests:', function () {
   };
   describe('Test items page', function () {
   	signin();
-    it('Should report missing credentials', function () {
-      browser.get('http://localhost:3001/items');
-      expect(element.all(by.repeater('item in items')).count()).toEqual(0);
+  	it('Should navigate to item page with an admin login', function () {
+     browser.get('http://localhost:3001/items');
+     expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/items');
     });
     it('Should navigate to create page upon button click', function () {
      browser.get('http://localhost:3001/items');
@@ -91,4 +97,59 @@ describe('Items E2E Tests:', function () {
       expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/items');
     });
   });
+  describe('Test Categories, Modules pages', function () {
+  	signin();
+  	it('Should navigate to category page with an admin login', function () {
+     browser.get('http://localhost:3001/admin/items/categories');
+     expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/admin/items/categories');
+    });
+    it('Should navigate to category create page upon button click', function () {
+     browser.get('http://localhost:3001/admin/items/categories');
+     element(by.id('add-category-btn')).click();
+     expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/admin/items/categories/create');
+ });
+    it('Should not create an category without a title', function () {
+     browser.get('http://localhost:3001/admin/items/categories/create');
+     element(by.css('button[type=submit]')).click();
+     var alertDialog = browser.switchTo().alert();
+  	expect(alertDialog.accept).toBeDefined();
+ 	 alertDialog.accept();
+     expect(element.all(by.css('.error-text')).get(0).getText()).toBe('Category name is required.');
+    });
+    it('Should create an category with a title', function () {
+     browser.get('http://localhost:3001/admin/items/categories/create');
+     element(by.model('vm.cat.title')).sendKeys(category.title);
+     element(by.css('button[type=submit]')).click();
+     var alertDialog = browser.switchTo().alert();
+  	 expect(alertDialog.accept).toBeDefined();
+ 	 alertDialog.accept();
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/admin/items/categories');
+    });
+    it('Should navigate to module page with an admin login', function () {
+     browser.get('http://localhost:3001/admin/items/modules');
+     expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/admin/items/modules');
+    });
+    it('Should navigate to module create page upon button click', function () {
+     browser.get('http://localhost:3001/admin/items/modules');
+     element(by.id('add-module-btn')).click();
+     expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/admin/items/modules/create');
+ });
+    it('Should not create an module without a title', function () {
+     browser.get('http://localhost:3001/admin/items/modules/create');
+     element(by.css('button[type=submit]')).click();
+     var alertDialog = browser.switchTo().alert();
+  	 expect(alertDialog.accept).toBeDefined();
+ 	 alertDialog.accept();
+     expect(element.all(by.css('.error-text')).get(0).getText()).toBe('Module name is required.');
+    });
+    it('Should create an module with a title', function () {
+     browser.get('http://localhost:3001/admin/items/modules/create');
+     element(by.model('vm.mod.title')).sendKeys(module.title);
+     element(by.css('button[type=submit]')).click();
+     var alertDialog = browser.switchTo().alert();
+  	 expect(alertDialog.accept).toBeDefined();
+ 	 alertDialog.accept();
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:3001/admin/items/modules');
+    });
+});
 });
