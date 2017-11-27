@@ -3,19 +3,25 @@
     <h1>
       Items
     </h1>
-      <span><span class="glyphicon glyphicon-search"></span><input type="text" size= "44" placeholder="Search by name, content, category or module" ng-model="query">
-      <a class="btn btn-primary pull-right" data-ui-sref="items.create">
-        <i class="glyphicon glyphicon-plus"></i>
-      </a>
-    </span>
-    <div>
   </div>
-  </div>
+      <div class="col-xs-4 pull-right">   
+         <a id="add-item-btn" class="btn btn-primary pull-right" data-ui-sref="items.create">    
+           <i class="glyphicon glyphicon-plus"></i>    
+         </a>    
+      </div>        
+     <div class="row">   
+       <div class="col-xs-12">   
+         <input class="form-control"   
+           type="text"   
+           placeholder="Search by name, content, category or module"     
+           ng-model="query"/>    
+       </div>    
+     </div>
   <div class="list-group" style="width: 100%">
     <table>
     <tr data-ng-repeat="item in vm.items | filter: query"> 
     <td span= "1" style="width: 84%;">
-    <a data-ui-sref="admin.items.edit({itemId: item._id})" class="list-group-item">
+    <a data-ui-sref="items.edit({itemId: item._id})" class="list-group-item">
       <small class="list-group-item-text">
         Posted on
         <span data-ng-bind="item.created | date:'mediumDate'"></span>
