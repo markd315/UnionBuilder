@@ -35,13 +35,11 @@
           <span ng-if="item.user" ng-bind="item.user.displayName"></span>
           <span ng-if="!item.user">Deleted User</span>
         </b>
-      </div>
-      
-    <a class="btn btn-danger" ng-click="vm.increment(item, -10)">-10</a>
+      </div>  
+    <a class="btn btn-danger pull-right" ng-click="vm.increment(item, -10)">-10</a>
     <a class="btn btn-danger pull-right" ng-click="vm.increment(item, -1)">-1</a>
-      <a class="btn btn-success pull-right" ng-click="vm.increment(item, 1)">1</a>
-      <a class="btn btn-success pull-right" ng-click="vm.increment(item, 10)">10</a>
-      
+    <a class="btn btn-success pull-right" ng-click="vm.increment(item, 1)">1</a>
+    <a class="btn btn-success pull-right" ng-click="vm.increment(item, 10)">10</a>
     </a>
   </div>
   <div class="alert alert-warning text-center" data-ng-if="items.$resolved && !items.length">
