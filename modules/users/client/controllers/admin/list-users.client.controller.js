@@ -5,17 +5,23 @@
     .module('users.admin')
     .controller('UserListController', UserListController);
 
-  UserListController.$inject = ['$scope', '$filter', 'AdminService'];
+  UserListController.$inject = ['$scope', '$filter', 'AdminService', 'ApplicantsService'];
 
-  function UserListController($scope, $filter, AdminService) {
+  function UserListController($scope, $filter, AdminService, ApplicantsService) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
+    vm.modifyRoles = modifyRoles;
+    vm.countApplicants = countApplicants;
 
     AdminService.query(function (data) {
       vm.users = data;
       vm.buildPager();
+    });
+
+    ApplicantsService.query(function (data) {
+      vm.applicants = data;
     });
 
     function buildPager() {
@@ -35,8 +41,25 @@
       vm.pagedItems = vm.filteredItems.slice(begin, end);
     }
 
+    function modifyRoles(user) {
+      if (user.roles.indexOf('admin') != -1)
+          return 'Admin';
+      if (user.roles.indexOf('superta') != -1 )
+        return 'Super TA';
+      if (user.roles.indexOf('technician') != -1 )
+        return 'Technician';
+      if (user.roles.indexOf('ta') != -1 )
+        return 'TA';
+      return 'User';
+    }
+
     function pageChanged() {
       vm.figureOutItemsToDisplay();
     }
+
+    function countApplicants() {
+      return vm.applicants.length;
+    }
+
   }
 }());

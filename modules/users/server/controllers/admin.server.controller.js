@@ -8,6 +8,7 @@ var path = require('path'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
+const mailer = require('./mailer.js');
 /**
  * Show the current user
  */
@@ -26,6 +27,7 @@ exports.update = function (req, res) {
   user.lastName = req.body.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
+  user.modulesTaught = req.body.modulesTaught;
 
   user.save(function (err) {
     if (err) {
@@ -35,6 +37,59 @@ exports.update = function (req, res) {
     }
 
     res.json(user);
+  });
+};
+
+/**
+ * Admin creates user
+ */
+exports.adminsignup = function (req, res) {
+  var user = new User(req.body);
+  user.provider = 'local';
+  user.approvedStatus = true;
+  user.modulesTaught = req.body.modulesTaught;
+  var genHexPassword = function (length) {
+        var str = 'Pa';
+        for(var i = 0; i < length; i++) {
+          var toAdd = Math.floor(Math.random() * 16.0);
+          if(toAdd < 10) {
+            str += toAdd;  
+          }
+          if(toAdd == 10) {
+            str += 'A'; 
+          }
+          if(toAdd == 11) {
+            str += 'B'; 
+          }
+          if(toAdd == 12) {
+            str += 'C'; 
+          }
+          if(toAdd == 13) {
+            str += 'D'; 
+          }
+          if(toAdd == 14) {
+            str += 'E'; 
+          }
+          if(toAdd == 15) {
+            str += 'F'; 
+          }
+        }
+        return str + '!';
+  };
+  var tempUnhashed = genHexPassword(7);
+  user.password = tempUnhashed;
+  user.save(function (err) {
+    if (err) {
+      tempUnhashed = '';
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // Remove sensitive data before login
+      res.status(200).send();
+      mailer.sendCreation(user.email, user.firstName, user.username, tempUnhashed);
+      tempUnhashed = '';
+    }
   });
 };
 
@@ -59,7 +114,7 @@ exports.delete = function (req, res) {
  * List of Users
  */
 exports.list = function (req, res) {
-  User.find({}, '-salt -password -providerData').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  User.find({ approvedStatus: true }, '-salt -password -providerData').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -68,6 +123,46 @@ exports.list = function (req, res) {
 
     res.json(users);
   });
+};
+
+exports.unapprovedList = function(req, res) {
+  User
+    .find({ approvedStatus: false })
+    .sort('-created')
+    .populate('user', 'displayName')
+    .exec(function(err, unapprovedUsers) {
+      if (err) {
+        return res.status(422).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+
+      res.json(unapprovedUsers);
+    });
+};
+
+exports.changeToAccepted = function (req, res) {
+  var unapprovedUser = req.body;
+  User.findOneAndUpdate({'username' : unapprovedUser.username}, {$set: {'approvedStatus' : true, 'roles': unapprovedUser.roles}}, function(err, changedUser) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    res.json(changedUser);
+    mailer.sendAcceptance(unapprovedUser.email, unapprovedUser.firstName);
+  });
+};
+
+
+exports.deleteApplicant = function (req, res) {
+  var unapprovedUser = req.query;
+  if (unapprovedUser) {
+    User.findOneAndRemove({'username': unapprovedUser.username, 'approvedStatus': false}, function (err) {
+      if (err) throw err;
+      console.log(unapprovedUser.approvedStatus);
+    });
+  }
 };
 
 /**

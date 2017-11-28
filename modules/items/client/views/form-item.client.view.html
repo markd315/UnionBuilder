@@ -1,0 +1,76 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+        <div class="col-xs-8">
+            <h1>{{vm.item._id ? 'Edit Item' : 'New Item'}}</h1>
+        </div>
+        <div class="col-xs-4 pull-right">
+          <a id="item-delete-btn" ng-show="vm.item._id" class="btn btn-primary" ng-if="vm.authentication.user.roles != 'ta'" ng-click="vm.remove()">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+        </div>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <form name="vm.form.itemForm" class="form-horizontal" ng-submit="vm.save(vm.form.itemForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="title">Title</label>
+          <input name="title" type="text" ng-model="vm.item.title" id="title" class="form-control" placeholder="Title" required autofocus>
+          <div ng-messages="vm.form.itemForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Item title is required.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group dropdown-group">
+              <label for="modules">Modules</label>
+              <div class="dropdown-flex-box">
+                <select name="module" id="module" class="form-control" ng-model="vm.item.modules" placeholder="module"
+                  ng-options="mod.title for mod in vm.mods track by mod._id">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group dropdown-group">
+              <label for="category">Categories</label>
+              <div class="dropdown-flex-box">
+                <select name="category" id="category" class="form-control" ng-model="vm.item.categories" placeholder="category"
+                  ng-options="cat.title for cat in vm.cats track by cat._id">
+                </select>
+              </div>
+            </div>
+              
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group dropdown-group">
+              <label for="workingStatus">Working Status</label>
+              <div class="dropdown-flex-box">
+                <select name="workingStatus" id="workingStatus" class="form-control" ng-model="vm.item.workingStatus" placeholder="Working Status">
+                  <option value="Working">Working</option>
+                  <option value="In Need Of Inspection">In Need Of Inspection</option>
+                  <option value="Broken">Broken</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>   
+        <div class="form-group">
+          <label class="control-label" for="title">Count</label>
+          <input name="count" type="text" ng-model="vm.item.count" id="count" class="form-control" placeholder="Count">
+          <label class="control-label" for="title">Restock Threshold (Sends email when count drops below this)</label>
+          <input name="restockThreshold" type="text" ng-model="vm.item.restockThreshold" id="restockThreshold" class="form-control" placeholder="Restock Threshold">
+          <label class="control-label" for="title">PDF Link:</label>  
+          <input name="pdf" type="text" ng-model="vm.item.pdf" id="pdf" class="form-control" placeholder="PDF">
+          <label class="control-label" for="content">Content</label>
+          <textarea name="content" data-ng-model="vm.item.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.item._id ? 'Update' : 'Create'}}</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

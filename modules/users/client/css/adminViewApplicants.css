@@ -1,0 +1,28 @@
+.applicantsTable {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.first-row {
+	font-weight: bold;
+}
+
+#applicant-rows > td, #header-row > td {
+	vertical-align: middle;
+}
+
+.applicant-name-col {
+	width: 25%;
+}
+
+.applicant-roles-col {
+	width: 25%;
+}
+
+.checkAll {
+	vertical-align: middle;
+}
+
+.approval-action-btn {
+	font-size: 10px;
+}

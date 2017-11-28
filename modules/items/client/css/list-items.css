@@ -1,0 +1,18 @@
+.item-content {
+    margin-bottom: 15px !important;
+    margin-top: 15px;
+}
+
+.item-box {
+    border: 1.5px solid #222 !important;
+    cursor: pointer;
+}
+
+#add-item-btn {
+    float: right;
+    margin-top: 21px;
+}
+
+.category-title, .module-title {
+    border-bottom: 3px solid;
+}

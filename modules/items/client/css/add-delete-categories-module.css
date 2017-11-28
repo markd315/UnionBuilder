@@ -1,0 +1,32 @@
+.firstColumn{
+	text-align: left;
+	width: 85%;
+}
+
+.secondColumn{
+	text-align: center;
+	width: 15%;
+}
+
+#add-module-btn, #add-category-btn {
+    float: right;
+    margin-top: 21px;
+}
+
+.categories-table, .modules-table {
+    border: 1.5px solid #222 !important;
+}
+
+.categories-table > tbody > tr > td, .modules-table > tbody > tr > td {
+    vertical-align: middle !important;
+}
+
+.hex-color {
+    border-bottom: 3px solid;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.remove-btn {
+    float: right;
+}

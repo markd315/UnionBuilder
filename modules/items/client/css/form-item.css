@@ -1,0 +1,13 @@
+#item-delete-btn {
+    float: right;
+    margin-top: 25px;
+}
+
+.dropdown-flex-box {
+    display: flex;
+    flex-direction: row;
+}
+
+.dropdown-group {
+    width: 100%;
+}

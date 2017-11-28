@@ -14,7 +14,8 @@
         url: '/users',
         templateUrl: '/modules/users/client/views/admin/list-users.client.view.html',
         controller: 'UserListController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        css: 'css/users.css'
       })
       .state('admin.user', {
         url: '/users/:userId',
@@ -28,6 +29,12 @@
           pageTitle: '{{ userResolve.displayName }}'
         }
       })
+      .state('admin.add-user', {
+        url: '/add',
+        templateUrl: '/modules/users/client/views/admin/add-user.client.view.html',
+        controller: 'AddUserController',
+        controllerAs: 'vm'
+      })
       .state('admin.user-edit', {
         url: '/users/:userId/edit',
         templateUrl: '/modules/users/client/views/admin/edit-user.client.view.html',
@@ -39,6 +46,13 @@
         data: {
           pageTitle: '{{ userResolve.displayName }}'
         }
+      })
+      .state('admin.user-view-applicants', {// Adding view applicants view and functionality to routes
+        url: '/unapproved',
+        templateUrl: '/modules/users/client/views/admin/view-applicants.html',
+        controller: 'ViewApplicantsController',
+        controllerAs: 'vm',
+        css: 'css/adminViewApplicants.css'
       });
 
     getUser.$inject = ['$stateParams', 'AdminService'];

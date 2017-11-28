@@ -15,7 +15,6 @@ var mongoose = require('mongoose'),
 
 owasp.config(config.shared.owasp);
 
-
 /**
  * A Validation function for local strategy properties
  */
@@ -89,10 +88,14 @@ var UserSchema = new Schema({
   },
   password: {
     type: String,
-    default: ''
+    default: 'Password123!'
   },
   salt: {
     type: String
+  },
+  approvedStatus :{
+    type: Boolean,
+    default: false
   },
   profileImageURL: {
     type: String,
@@ -104,12 +107,13 @@ var UserSchema = new Schema({
   },
   providerData: {},
   additionalProvidersData: {},
+  //Escalating option levels include "TA", "Technician"=="SuperTA", "Admin".
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: ['ta', 'technician', 'superta', 'admin']
     }],
-    default: ['user'],
+    default: ['ta'],
     required: 'Please provide at least one role'
   },
   updated: {
@@ -125,6 +129,10 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
+  },
+  modulesTaught: {
+    type: [String],
+    default: []
   }
 });
 
@@ -300,7 +308,11 @@ function seed(doc, options) {
 
             user.provider = 'local';
             user.displayName = user.firstName + ' ' + user.lastName;
-            user.password = passphrase;
+            if (user.username == 'seedadmintest') {
+              user.password = 'P@$$w0rd!!';
+            } else {
+              user.password = passphrase;
+            }
 
             user.save(function (err) {
               if (err) {
