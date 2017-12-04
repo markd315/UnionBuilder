@@ -10,6 +10,10 @@ var path = require('path'),
   Module = mongoose.model('Module'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
+
+/*
+ * Grabs all the categories from the database.
+ */
 exports.listAllCategories = function(req, res) {
   Category.find().sort('-title').exec(function (err, categories) {
     if (err) {
@@ -22,6 +26,9 @@ exports.listAllCategories = function(req, res) {
   });
 };
 
+/*
+ * Creates a category and adds it to the database.
+ */
 exports.createCategory = function (req, res) {
   var category = new Category(req.body);
   category.user = req.user;
@@ -37,6 +44,9 @@ exports.createCategory = function (req, res) {
   });
 };
 
+/*
+ * Deletes a category from the database.
+ */
 exports.deleteCategory = function(req, res) {
   var toDelete = req.query;
   Category.findOneAndRemove({'title' : toDelete.title}, function(err, deleted) {
@@ -49,7 +59,9 @@ exports.deleteCategory = function(req, res) {
   });
  };
 
-
+/*
+ * Grabs all the modules from the database.
+ */
 exports.listAllModules = function(req, res) {
   Module.find().sort('-title').exec(function (err, modules) {
     if (err) {
@@ -62,6 +74,9 @@ exports.listAllModules = function(req, res) {
   });
 };
 
+/*
+ * Creates a module and adds it to the database.
+ */
 exports.createModule = function (req, res) {
   var module = new Module(req.body);
   module.user = req.user;
@@ -77,7 +92,9 @@ exports.createModule = function (req, res) {
   });
 };
 
-
+/*
+ * Deletes a modules from the database.
+ */
 exports.deleteModule = function(req, res) {
   var toDelete = req.query;
   Module.findOneAndRemove({'title' : toDelete.title}, function(err, deleted) {

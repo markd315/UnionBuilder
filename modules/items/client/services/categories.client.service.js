@@ -7,6 +7,10 @@
 
 
   CategoriesService.$inject = ['$resource', '$log'];
+
+  /*
+   * A Categories Service to access the methods from the Item server controller
+   */
   function CategoriesService($resource, $log) {
     var Category = $resource('/api/categories', {}, 
     {

@@ -7,6 +7,9 @@
 
   ItemsService.$inject = ['$resource', '$log'];
 
+  /*
+   * An Items Service to utilize the methods from Item server controller.
+   */
   function ItemsService($resource, $log) {
     var Item = $resource('/api/items/:itemId', {
       itemId: '@_id'
