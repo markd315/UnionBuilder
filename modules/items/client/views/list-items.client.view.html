@@ -23,45 +23,52 @@
   </div>
   <div class="list-group">
     <div data-ng-repeat="item in vm.items | filter: query" data-ui-sref="items.edit({itemId: item._id})" class="list-group-item item-box">
-      <h4 class="list-group-item-heading" data-ng-bind="item.title"></h4>
-      <p class="list-group-item-text item-content" data-ng-bind="item.content"></p>
-      <div ng-if="item.categories" class="list-group-item-text">
-        Category:&nbsp;
-        <span class="category-title" data-ng-bind="item.categories.title" ng-style="{'border-bottom-color': item.categories.hexColor}"></span>
+      <h2 class="list-group-item-heading" data-ng-bind="item.title"></h2>
+      <div class="item-content-background">
+        <p class="list-group-item-text" data-ng-bind="item.content"></p>
       </div>
-      <div ng-if="item.modules" class="list-group-item-text">
-        Module:&nbsp;
-        <span class="module-title" data-ng-bind="item.modules.title" ng-style="{'border-bottom-color': item.modules.hexColor}"></span>
-      </div>
-      <div ng-if="item.count!=0" class="list-group-item-text">
-        <div>
-          Count:&nbsp;
-          <span ng-if="item.count" data-ng-bind="item.count"></span>
+      <div class="row">
+        <div class="col-xs-6">
+          <div ng-if="item.categories" class="list-group-item-text item-attr">
+            Category:&nbsp;
+            <span class="category-title" data-ng-bind="item.categories.title" ng-style="{'border-bottom-color': item.categories.hexColor}"></span>
+          </div>
+          <div ng-if="item.modules" class="list-group-item-text item-attr">
+            Module:&nbsp;
+            <span class="module-title" data-ng-bind="item.modules.title" ng-style="{'border-bottom-color': item.modules.hexColor}"></span>
+          </div>
+          <div class="item-attr" ng-if= "item.pdf">
+            PDF Link:&nbsp;
+            <a ng-href="{{item.pdf}}" ng-click="$event.stopPropagation();" data-ng-bind="item.pdf"></a>
+          </div>
+          <div class="item-attr">
+            Posted on
+            <span data-ng-bind="item.created | date:'mediumDate'"></span>
+            by
+            <b>
+              <span ng-if="item.user" ng-bind="item.user.displayName"></span>
+              <span ng-if="!item.user">Deleted User</span>
+            </b>
+          </div>
         </div>
-        <div>
-          <a class="btn btn-danger" ng-click="vm.increment(item, -10); $event.stopPropagation();">-10</a>
-          <a class="btn btn-danger" ng-click="vm.increment(item, -1); $event.stopPropagation();">-1</a>
-          <a class="btn btn-success" ng-click="vm.increment(item, 1); $event.stopPropagation();">1</a>
-          <a class="btn btn-success" ng-click="vm.increment(item, 10); $event.stopPropagation();">10</a>
+        <div class="col-xs-6">
+          <div class="item-attr">
+            Status:&nbsp;
+            <span ng-if="item.workingStatus" data-ng-bind="item.workingStatus"></span>
+          </div>
+          <div ng-if="item.count!=0" class="list-group-item-text item-attr">
+            <div>
+              Count:&nbsp;
+              <span ng-if="item.count" data-ng-bind="item.count"></span>
+            </div>
+            <div>
+              <a class="btn btn-danger" ng-click="vm.increment(item, -10); $event.stopPropagation();">-10</a>
+              <a class="btn btn-danger" ng-click="vm.increment(item, -1); $event.stopPropagation();">-1</a>
+              <a class="btn btn-success" ng-click="vm.increment(item, 1); $event.stopPropagation();">1</a>
+              <a class="btn btn-success" ng-click="vm.increment(item, 10); $event.stopPropagation();">10</a>
+            </div>
+          </div>
         </div>
-      </div>
-      <div>
-        Status:&nbsp;
-        <span ng-if="item.workingStatus" data-ng-bind="item.workingStatus"></span>
-      </div>
-      <div>
-        Posted on
-        <span data-ng-bind="item.created | date:'mediumDate'"></span>
-        by
-        <b>
-          <span ng-if="item.user" ng-bind="item.user.displayName"></span>
-          <span ng-if="!item.user">Deleted User</span>
-        </b>
-        <div ng-if= "item.pdf">
-        <b>PDF Link:&nbsp;
-          <span data-ng-bind="item.pdf"></span>
-        </b>
-      </div>
       </div>
     </div>
   </div>

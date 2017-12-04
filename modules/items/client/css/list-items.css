@@ -1,6 +1,6 @@
-.item-content {
-    margin-bottom: 15px !important;
-    margin-top: 15px;
+.item-content-background {
+    background-color: #6e6e6e;
+    padding: 15px;
 }
 
 .item-box {
@@ -15,4 +15,9 @@
 
 .category-title, .module-title {
     border-bottom: 3px solid;
+}
+
+.item-attr {
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
