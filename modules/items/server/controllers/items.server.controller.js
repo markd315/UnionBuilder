@@ -93,7 +93,7 @@ exports.createModule = function (req, res) {
 };
 
 /*
- * Deletes a modules from the database.
+ * Deletes a module from the database
  */
 exports.deleteModule = function(req, res) {
   var toDelete = req.query;
