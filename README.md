@@ -6,6 +6,20 @@
 [![Coverage Status](https://coveralls.io/repos/meanjs/mean/badge.svg?branch=master&service=github)](https://coveralls.io/github/meanjs/mean?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/meanjs/mean/badge.svg)](https://snyk.io/test/github/meanjs/mean)
 
+
+
+# CEN3031 FINAL PROJECT DOCUMENTATION:
+
+## Link to the deployed page: laboratory-inventory.herokuapp.com
+
+## Credit people/organizations you borrowed code from or APIs you used: Bootstrap, Bootswatch, MEAN.JS, Nodemailer.
+
+## List of all project features implemented and associated screenshots include landing or home page:
+
+## Instructions for how to run the project locally: Clone this github repository.  Navigate to it locally and checkout the branch you wish to run. The first time it is necessary to run npm install to install all the node dependencies.  Then simply run npm start and the project will run locally. 
+
+## How to update database and server connections: For database hosting, we use [mlab](https://mlab.com/home/) and have three databases. One is for testing. One is for development, and one is for production. The uris can be updated to new mLab databases in test.js, development.js, and production.js. Information about our deployment can be found in the deployment.md file in this repository.
+
 MEAN.JS is a full-stack JavaScript open-source solution, which provides a solid starting point for [MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/), [Express](http://expressjs.com/), and [AngularJS](http://angularjs.org/) based applications. The idea is to solve the common issues with connecting those frameworks, build a robust framework to support daily development needs, and help developers use better practices while working with popular JavaScript components.
 
 ## Before You Begin
