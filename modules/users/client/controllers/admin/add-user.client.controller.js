@@ -16,6 +16,7 @@
     vm.modulesTA = [];
     $scope.modules = AdminModulesService.query();
 
+    //Signing up the user by validating credentials
     function signup(isValid) {
 
       if (!isValid) {
@@ -32,15 +33,18 @@
         .catch(onAddUserError);
     }
 
+    //Show a toast to the user for successfully signing up.
     function onAddUserSuccess(response) {
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
       $state.go($state.previous.state.name || 'home', $state.previous.params);
     }
 
+    //Show a toast to the user telling him or her that there were errors in signing up.
     function onAddUserError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Add User Error!', delay: 6000 });
     }
 
+    //Converting roles shown from the front end to the roles shown on the schema.
     function alterRole (role) {
       if(role == 'TA')
         return 'ta';
@@ -50,6 +54,7 @@
         return role;
     }
 
+    //Adding and removing modules that the TAs teach based on the number of checkboxes checked.
     function modifyTAModules(module, checked) {
       if(checked) {
         vm.modulesTA.push(module.title);

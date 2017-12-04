@@ -14,6 +14,7 @@
     vm.authentication = Authentication;
     vm.create = create;
 
+    //Create a new module
     function create() {
       if ($window.confirm('Are you sure you want to create?')) {
         vm.mod.$new(function () {

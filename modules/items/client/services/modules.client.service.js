@@ -7,6 +7,10 @@
 
 
   ModulesService.$inject = ['$resource', '$log'];
+
+  /*
+   * A Modules Service to access the methods from the Item server controller
+   */
   function ModulesService($resource, $log) {
     var Module = $resource('/api/modules', {}, 
     {

@@ -20,10 +20,12 @@
       vm.buildPager();
     });
 
+    //Querying applicants for showing the number of pending users in the system.
     ApplicantsService.query(function (data) {
       vm.applicants = data;
     });
 
+    //Building a pager would help eliminate the long list (and scrolling) of the users.
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
@@ -31,6 +33,7 @@
       vm.figureOutItemsToDisplay();
     }
 
+    //A helper function for the buildPager method and the pageChanged method.
     function figureOutItemsToDisplay() {
       vm.filteredItems = $filter('filter')(vm.users, {
         $: vm.search
@@ -41,6 +44,7 @@
       vm.pagedItems = vm.filteredItems.slice(begin, end);
     }
 
+    //Displaying the users' roles to the admin in a more friendly way.
     function modifyRoles(user) {
       if (user.roles.indexOf('admin') != -1)
           return 'Admin';
@@ -57,6 +61,7 @@
       vm.figureOutItemsToDisplay();
     }
 
+    //Returning the number of applicants, so it could be displayed in the View Pending Applicants button.
     function countApplicants() {
       return vm.applicants.length;
     }

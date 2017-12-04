@@ -21,8 +21,10 @@
     vm.modulesTA = [];
 
     $scope.modules = AdminModulesService.query();
+
+    //Name will be displayed in the html, id will be used on the database.
     $scope.roleOptions = [{
-      id: 'ta', //Name will be displayed in the html, id will be used on the database.
+      id: 'ta',
       name: 'TA'
     },
     {
@@ -39,6 +41,7 @@
     }
   ];
 
+    //Remove the user by deleting from the DB and the view.
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
         if (user) {
@@ -55,6 +58,7 @@
       }
     }
 
+    //Update the user's info by updating it in the DB.
     function update(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
@@ -75,10 +79,12 @@
       });
     }
 
+    //Converting roles shown from the front end to the roles shown on the schema.
     function changeRole(roleChange) {
       vm.role = roleChange.id;
     }
 
+    //Adding and removing modules that the TAs teach based on the number of checkboxes checked.
     function modifyTAModules(module, checked) {
       if(checked) {
         vm.modulesTA.push(module.title);

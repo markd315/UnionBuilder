@@ -13,7 +13,8 @@
     vm.cat = cat;
     vm.authentication = Authentication;
     vm.create = create;
-    
+
+    //Create a new category
     function create(valid) {
       if ($window.confirm('Are you sure you want to create?')) {
         vm.cat.$new(function () {
