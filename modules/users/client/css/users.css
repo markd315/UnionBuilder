@@ -28,6 +28,11 @@
   margin-bottom: 0;
 }
 
+.user-attr {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 @media (min-width: 768px) {
   #users-nav-buttons > a {
     float: right !important;
