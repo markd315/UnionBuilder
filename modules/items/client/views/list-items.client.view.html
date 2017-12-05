@@ -23,7 +23,7 @@
   </div>
   <div class="list-group">
     <div data-ng-repeat="item in vm.items | filter: query" data-ui-sref="items.edit({itemId: item._id})" class="list-group-item item-box">
-      <h2 class="list-group-item-heading" data-ng-bind="item.title"></h2>
+      <h3 class="list-group-item-heading" data-ng-bind="item.title"></h3>
       <div class="item-content-background">
         <p class="list-group-item-text" data-ng-bind="item.content"></p>
       </div>

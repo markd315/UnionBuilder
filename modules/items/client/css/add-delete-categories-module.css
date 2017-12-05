@@ -21,6 +21,10 @@
     vertical-align: middle !important;
 }
 
+.categories-table > thead > tr > th, .modules-table > thead > tr > th {
+    font-size: 20px;
+}
+
 .hex-color {
     border-bottom: 3px solid;
     display: inline-block;
