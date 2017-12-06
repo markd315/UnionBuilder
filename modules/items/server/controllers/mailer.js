@@ -15,13 +15,14 @@ let transporter = nodemailer.createTransport({
 });
 
 let Mailer = new function() {
-	this.sendAcceptance = function(email, firstname) {
+	this.checkForThreshold = function(email, oldval, inc, threshold, itemName) {
+		if(oldval > threshold && oldval+inc < threshold){
 		console.log('message sending in process');
 		let mailOptions = {
 			from: '"Lab Inventory Web App" <XXXX@ufl.edu>',
 			to: email,
-			subject: 'Accepted Application for Laboratory Inventory Web App',
-			text: firstname + ', the admin has approved your account. You may now sign in.'
+			subject: 'Item below resupply threshold',
+			text: 'The count of item ' + itemName + ' has been updated to reflect that it needs resupply.'
 		};
 		transporter.sendMail(mailOptions, (error, info) => {
 			if (error) {
@@ -29,26 +30,24 @@ let Mailer = new function() {
 			}
 			console.log('Message %s sent: %s', info.messageId, info.response);
 		});
+		}
 	};
-	
-	this.sendCreation = function(email, firstname, username, tempPWord) {
+	this.inspectOrBrokenCheck = function(email, oldStatus, newStatus, itemName) {
+		if(oldStatus = "working" && newStatus != "working"){
 		console.log('message sending in process');
 		let mailOptions = {
 			from: '"Lab Inventory Web App" <XXXX@ufl.edu>',
 			to: email,
-			subject: 'Login Information for Laboratory Inventory',
-			text: firstname + ', here are your credentials for the Laboratory Inventory web app. ' +
-						'Please change your password as soon as possible. \n\n' +
-						'Username: ' + username + '\n' +
-						'Password: ' + tempPWord + '\n'
+			subject: 'Lab Item needs attention',
+			text: 'Item ' + itemName + ' has been updated to reflect that it needs technician attention.'
 		};
-		tempPWord = '';//Infosec reasons
 		transporter.sendMail(mailOptions, (error, info) => {
 			if (error) {
 				return console.log(error);
 			}
 			console.log('Message %s sent: %s', info.messageId, info.response);
 		});
+		}
 	};
 };
 
