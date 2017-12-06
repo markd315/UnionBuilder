@@ -342,6 +342,7 @@ describe('Item CRUD tests', function () {
     });
   });
     
+    
 //Test for getting a single item created by a different user//
   it('should be able to get single item, that a different user created, if logged in & verify the "isCurrentUserOwner" field is set to "false"', function (done) {
     // Create temporary user creds
