@@ -15,8 +15,8 @@ let transporter = nodemailer.createTransport({
 });
 
 let Mailer = new function() {
-	this.checkForThreshold = function(email, oldval, inc, threshold, itemName) {
-		if(oldval > threshold && oldval+inc < threshold){
+	this.checkForThreshold = function(email, oldval, newval, threshold, itemName) {
+		if(oldval > threshold && newval < threshold){
 		console.log('message sending in process');
 		let mailOptions = {
 			from: '"Lab Inventory Web App" <XXXX@ufl.edu>',

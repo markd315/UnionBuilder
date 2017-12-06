@@ -145,6 +145,9 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var item = req.item;
 
+  var oldval = item.count;
+  var oldStatus = item.workingStatus;
+
   item.title = req.body.title;
   item.content = req.body.content;
   item.categories = req.body.categories;
@@ -153,8 +156,8 @@ exports.update = function (req, res) {
   item.count = req.body.count;
   item.pdf = req.body.pdf;
   item.restockThreshold = req.body.restockThreshold;
-  mailer.checkForThreshold("", oldval, inc, threshold, itemName);//TODO
-  mailer.inspectOrBrokenCheck("", oldStatus, newStatus, itemName);//TODO
+  mailer.checkForThreshold("dkopelevich@che.ufl.edu", oldval, item.count, item.restockThreshold, item.title);
+  mailer.inspectOrBrokenCheck("dkopelevich@che.ufl.edu", oldStatus, item.workingStatus, item.title);
   item.save(function (err) {
     if (err) {
       return res.status(422).send({
