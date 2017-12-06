@@ -74,6 +74,10 @@ describe('Item CRUD tests', function () {
       .catch(done);
   });
 
+/****
+*Beginning of Testing*
+*****/
+//Test for TA role being able to save an item//    
   it('should be able to save an item if logged in with the "ta" role', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -94,7 +98,8 @@ describe('Item CRUD tests', function () {
 
       });
   });
-
+    
+//Test for not being able to save an item if not logged in//
   it('should not be able to save an item if not logged in', function (done) {
     agent.post('/api/items')
       .send(item)
@@ -104,6 +109,8 @@ describe('Item CRUD tests', function () {
         done(itemSaveErr);
       });
   });
+    
+//Test for not being able to save a category when not logged in//    
   it('should not be able to save a category if not logged in', function (done) {
     agent.post('/api/categories')
       .send(category)
@@ -113,6 +120,8 @@ describe('Item CRUD tests', function () {
         done(categorySaveErr);
       });
   });
+
+//Test for not being able save a module when not logged in//    
   it('should not be able to save a module if not logged in', function (done) {
     agent.post('/api/modules')
       .send(module)
@@ -123,6 +132,7 @@ describe('Item CRUD tests', function () {
       });
   });
 
+//Test for only the admin role to update items//
   it('should be able to update an item if signed in without the "admin" role', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -143,6 +153,7 @@ describe('Item CRUD tests', function () {
       });
   });
 
+//Test for item entered with invalid Id//
   it('should return proper error for single item with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id
     agent.get('/api/items/test')
@@ -155,6 +166,7 @@ describe('Item CRUD tests', function () {
       });
   });
 
+//Test for error returning when an item that doesn't exist//    
   it('should return proper error for single item which doesnt exist, if not signed in', function (done) {
     // This is a valid mongoose Id but a non-existent item
     agent.get('/api/items/559e9cd815f80b4c256a8f41')
@@ -165,9 +177,9 @@ describe('Item CRUD tests', function () {
         // Call the assertion callback
         done();
       });
-  });
-   //test for TA not being able to delete should go here
-
+  }); 
+    
+//test for TA not being able to delete should go here//
   it('should not be able to delete an item if not signed in', function (done) {
     // Set item user
     item.user = user;
@@ -190,6 +202,8 @@ describe('Item CRUD tests', function () {
 
     });
   });
+
+//Test for not being able to delete a category when not signed in//    
   it('should not be able to delete an category if not signed in', function (done) {
     // Set item user
     category.title = 'user';
@@ -212,7 +226,9 @@ describe('Item CRUD tests', function () {
 
     });
   });
-  it('should not be able to delete an module if not signed in', function (done) {
+    
+//Test for not being able to delete a module when not signed in//    
+  it('should not be able to delete a module if not signed in', function (done) {
     // Set item user
     module.title = 'user';
 
@@ -235,6 +251,7 @@ describe('Item CRUD tests', function () {
     });
   });
 
+//Test for orphaned user reference for a single item//     
   it('should be able to get a single item that has an orphaned user reference', function (done) {
     // Create orphan user creds
     var _creds = {
@@ -324,7 +341,8 @@ describe('Item CRUD tests', function () {
         });
     });
   });
-
+    
+//Test for getting a single item created by a different user//
   it('should be able to get single item, that a different user created, if logged in & verify the "isCurrentUserOwner" field is set to "false"', function (done) {
     // Create temporary user creds
     var _creds = {
@@ -420,3 +438,7 @@ describe('Item CRUD tests', function () {
       .catch(done);
   });
 });
+
+/****
+*End of Testing*
+*****/
