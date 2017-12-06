@@ -30,6 +30,42 @@ let Mailer = new function() {
 			console.log('Message %s sent: %s', info.messageId, info.response);
 		});
 	};
+	this.checkForThreshold = function(email, oldval, inc, threshold) {
+		if(oldval > threshold && oldval+inc < threshold){
+		console.log('message sending in process');
+		let mailOptions = {
+			from: '"Lab Inventory Web App" <XXXX@ufl.edu>',
+			to: email,
+			subject: 'Accepted Application for Laboratory Inventory Web App',
+			text: firstname + ', the admin has approved your account. You may now sign in.'
+		};
+		transporter.sendMail(mailOptions, (error, info) => {
+			if (error) {
+				return console.log(error);
+			}
+			console.log('Message %s sent: %s', info.messageId, info.response);
+		});
+		}
+
+		
+	};
+	this.inspectOrBrokenAlert = function(email, oldStatus, newStatus) {
+		if(oldStatus = "working" && newStatus != "working"){
+		console.log('message sending in process');
+		let mailOptions = {
+			from: '"Lab Inventory Web App" <XXXX@ufl.edu>',
+			to: email,
+			subject: 'Accepted Application for Laboratory Inventory Web App',
+			text: firstname + ', the admin has approved your account. You may now sign in.'
+		};
+		transporter.sendMail(mailOptions, (error, info) => {
+			if (error) {
+				return console.log(error);
+			}
+			console.log('Message %s sent: %s', info.messageId, info.response);
+		});
+		}
+	};
 	this.sendCreation = function(email, firstname, username, tempPWord) {
 		console.log('message sending in process');
 		let mailOptions = {
