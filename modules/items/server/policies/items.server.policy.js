@@ -11,6 +11,7 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Items Permissions
  */
+//Where the permissions for the roles are handled
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin', 'superta', 'technician', 'ta'], //All should be able to create, read, update, and delete items.
