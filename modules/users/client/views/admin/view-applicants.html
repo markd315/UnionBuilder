@@ -7,11 +7,11 @@
     </div>
   </div>
   <div class="list-group">
-    <table class="table table-hover applicantsTable">
+    <table class="table table-hover table-striped applicantsTable">
     	<thead>
     		<tr id="header-row" class="first-row">
-    			<td class="applicant-name-col">Name</td>
-    			<td class="applicant-roles-col">Role</td>
+    			<th class="applicant-name-col">Name</th>
+    			<th class="applicant-roles-col">Role</th>
           <td>
             <button class="btn btn-primary" ng-click="vm.approveAll()">Approve All Remaining</button>
           </td>
@@ -19,13 +19,16 @@
       </thead>
       <tbody>
         <tr class="applicant-rows" ng-repeat="applicant in vm.unapprovedUsers">
-              <td>{{ applicant.firstName }} {{ applicant.lastName }}</td>
-              <td><select ng-init="applicant.roles = vm.roleOptions[0]" name="name" id="id" class="form-control" ng-model="applicant.roles" ng-options="option.name for option in vm.roleOptions">
-                </select>
-              </td>
-                <td class="btn btn-success" ng-click="vm.approveUser(applicant)">APPROVE</td>
-                <td class="btn btn-danger" ng-click="vm.removeApplicant(applicant)">DENY</td>
-            </tr>
+          <td>{{ applicant.firstName }} {{ applicant.lastName }}</td>
+          <td>
+            <select ng-init="applicant.roles = vm.roleOptions[0]" name="name" id="id" class="form-control" ng-model="applicant.roles" ng-options="option.name for option in vm.roleOptions">
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-success" ng-click="vm.approveUser(applicant)">APPROVE</button>
+            <button class="btn btn-danger" ng-click="vm.removeApplicant(applicant)">DENY</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

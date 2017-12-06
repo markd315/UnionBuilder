@@ -15,8 +15,9 @@
         vm.unapprovedUsers = data;
       });
 
+    //Name will be displayed in the html, id will be used on the database.
     vm.roleOptions = [{
-      id: 'ta', //Name will be displayed in the html, id will be used on the database.
+      id: 'ta',
       name: 'TA'
     },
     {
@@ -33,6 +34,7 @@
     }
   ];
 
+    //Remove applicant by deleting it from the DB and taking it out of the view.
     vm.removeApplicant = function (user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
         if (user) {
@@ -43,6 +45,7 @@
       }
     };
 
+    //Approve the user by changing the status of the applicant and taking it out of the view.
     vm.approveUser = function (user) {
       if (user) {
           var newUser = user;
@@ -54,6 +57,7 @@
       }
     };
 
+    //Approve all applicants
     vm.approveAll = function () {
       for(var i = vm.unapprovedUsers.length - 1; i >= -1; i--) { //This indexing might look a little weird but it wasn't working without it, so idk.
         vm.approveUser(vm.unapprovedUsers[i]);

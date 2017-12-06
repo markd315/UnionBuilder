@@ -2,30 +2,24 @@
   'use strict';
 
   angular
-    .module('users.admin')
-    .controller('UserListController', UserListController);
+    .module('users')
+    .controller('TAUserListController', TAUserListController);
 
-  UserListController.$inject = ['$scope', '$filter', 'AdminService', 'ApplicantsService'];
+  TAUserListController.$inject = ['$scope', '$filter', 'AdminService'];
 
-  function UserListController($scope, $filter, AdminService, ApplicantsService) {
+  function TAUserListController($scope, $filter, AdminService) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
     vm.modifyRoles = modifyRoles;
-    vm.countApplicants = countApplicants;
 
     AdminService.query(function (data) {
       vm.users = data;
       vm.buildPager();
     });
 
-    //Querying applicants for showing the number of pending users in the system.
-    ApplicantsService.query(function (data) {
-      vm.applicants = data;
-    });
 
-    //Building a pager would help eliminate the long list (and scrolling) of the users.
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
@@ -33,7 +27,6 @@
       vm.figureOutItemsToDisplay();
     }
 
-    //A helper function for the buildPager method and the pageChanged method.
     function figureOutItemsToDisplay() {
       vm.filteredItems = $filter('filter')(vm.users, {
         $: vm.search
@@ -44,7 +37,6 @@
       vm.pagedItems = vm.filteredItems.slice(begin, end);
     }
 
-    //Displaying the users' roles to the admin in a more friendly way.
     function modifyRoles(user) {
       if (user.roles.indexOf('admin') != -1)
           return 'Admin';
@@ -61,10 +53,6 @@
       vm.figureOutItemsToDisplay();
     }
 
-    //Returning the number of applicants, so it could be displayed in the View Pending Applicants button.
-    function countApplicants() {
-      return vm.applicants.length;
-    }
 
   }
 }());

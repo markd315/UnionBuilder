@@ -1,6 +1,15 @@
 .applicantsTable {
+    border: 1.5px solid #222 !important;
 	text-align: center;
 	vertical-align: middle;
+}
+
+.applicantsTable > tbody > tr > td {
+    vertical-align: middle !important;
+}
+
+.applicantsTable > thead > tr > th {
+    font-size: 20px;
 }
 
 .first-row {
