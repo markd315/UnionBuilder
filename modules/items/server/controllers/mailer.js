@@ -33,7 +33,7 @@ let Mailer = new function() {
 		}
 	};
 	this.inspectOrBrokenCheck = function(email, oldStatus, newStatus, itemName) {
-		if(oldStatus = "working" && newStatus != "working"){
+		if(oldStatus = "Working" && newStatus != "Working"){
 		console.log('message sending in process');
 		let mailOptions = {
 			from: '"Lab Inventory Web App" <XXXX@ufl.edu>',
