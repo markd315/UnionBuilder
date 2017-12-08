@@ -10,7 +10,7 @@ var path = require('path'),
   Module = mongoose.model('Module'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
-
+  const mailer = require('./mailer.js');
 /*
  * Grabs all the categories from the database.
  */
@@ -145,15 +145,22 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var item = req.item;
 
+  var oldval = item.count;
+  var oldStatus = item.workingStatus;
+
   item.title = req.body.title;
   item.content = req.body.content;
   item.categories = req.body.categories;
   item.modules = req.body.modules;
+  console.log("oldstatus: "+ item.workingStatus);
   item.workingStatus = req.body.workingStatus;
+  console.log("newstatus: "+ item.workingStatus);
   item.count = req.body.count;
   item.pdf = req.body.pdf;
   item.restockThreshold = req.body.restockThreshold;
 
+  mailer.checkForThreshold("dkopelevich@che.ufl.edu", oldval, item.count, item.restockThreshold, item.title);
+  mailer.inspectOrBrokenCheck("dkopelevich@che.ufl.edu", oldStatus, item.workingStatus, item.title);
   item.save(function (err) {
     if (err) {
       return res.status(422).send({
