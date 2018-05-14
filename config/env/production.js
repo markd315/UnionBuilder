@@ -9,27 +9,28 @@ module.exports = {
     certificate: './config/sslcerts/cert.pem',
     caBundle: './config/sslcerts/cabundle.crt'
   },
+  sessionSecret : process.env.SESSION_SECRET || 'super amazing secret',
   port: process.env.PORT || 8443,
   // Binding to 127.0.0.1 is safer in production.
   host: process.env.HOST || '0.0.0.0',
   db: {
-    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://InventoryApp:InventoryApp@ds155934.mlab.com:55934/cen3101-mean-prod',
+    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://gitTestURI:openpass@ds161713.mlab.com:61713/mark-mean',
     options: {
       /**
       * Uncomment to enable ssl certificate based authentication to mongodb
       * servers. Adjust the settings below for your specific certificate
       * setup.
       * for connect to a replicaset, rename server:{...} to replset:{...}
-
+  
       ssl: true,
       sslValidate: false,
       checkServerIdentity: false,
-      sslCA: fs.readFileSync('./config/sslcerts/ssl-ca.pem'),
-      sslCert: fs.readFileSync('./config/sslcerts/ssl-cert.pem'),
-      sslKey: fs.readFileSync('./config/sslcerts/ssl-key.pem'),
+      //sslCA: fs.readFileSync('./config/sslcerts/ssl-ca.pem'),
+      sslCert: fs.readFileSync('./config/sslcerts/cert.pem'),
+      sslKey: fs.readFileSync('./config/sslcerts/key.pem'),
       sslPass: '1234'
-
-      */
+    */
+      
     },
     // Enable mongoose debug mode
     debug: process.env.MONGODB_DEBUG || false
