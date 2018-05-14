@@ -63,6 +63,9 @@
 
     //Returning the number of applicants, so it could be displayed in the View Pending Applicants button.
     function countApplicants() {
+      if(!vm.applicants){
+        return 0; //Field does not exist
+      }
       return vm.applicants.length;
     }
 
