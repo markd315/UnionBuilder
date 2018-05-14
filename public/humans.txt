@@ -4,13 +4,8 @@
 # TEAM
 
     Mark Davis -- Product Manager -- @ZANZALAZ
-    Ryan Clements -- Scrum Master --
-    Kevin Bayas --...//TODO 
-
-
-# THANKS
-
-    <name>
+    Avery Hyle
+    Robert Matyjek
 
 # TECHNOLOGY COLOPHON
 
