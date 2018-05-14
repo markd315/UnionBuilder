@@ -439,7 +439,3 @@ describe('Item CRUD tests', function () {
       .catch(done);
   });
 });
-
-/****
-*End of Testing*
-*****/

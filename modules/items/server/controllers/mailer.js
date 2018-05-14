@@ -16,7 +16,7 @@ let transporter = nodemailer.createTransport({
 
 let Mailer = new function() {
 	this.checkForThreshold = function(email, oldval, newval, threshold, itemName) {
-		if(oldval >= threshold && newval < threshold){
+		if(oldval >= threshold && newval < threshold) {
 		console.log('message sending in process');
 		let mailOptions = {
 			from: '"Lab Inventory Web App" <XXXX@ufl.edu>',
@@ -33,7 +33,7 @@ let Mailer = new function() {
 		}
 	};
 	this.inspectOrBrokenCheck = function(email, oldStatus, newStatus, itemName) {
-		if(oldStatus!=newStatus && newStatus != "Working" && newStatus){
+		if(oldStatus != newStatus && newStatus != 'Working' && newStatus) {
 		console.log('message sending in process');
 		let mailOptions = {
 			from: '"Lab Inventory Web App" <XXXX@ufl.edu>',

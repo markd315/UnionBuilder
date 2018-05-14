@@ -152,15 +152,15 @@ exports.update = function (req, res) {
   item.content = req.body.content;
   item.categories = req.body.categories;
   item.modules = req.body.modules;
-  console.log("oldstatus: "+ item.workingStatus);
+  console.log('oldstatus: ' + item.workingStatus);
   item.workingStatus = req.body.workingStatus;
-  console.log("newstatus: "+ item.workingStatus);
+  console.log('newstatus: ' + item.workingStatus);
   item.count = req.body.count;
   item.pdf = req.body.pdf;
   item.restockThreshold = req.body.restockThreshold;
 
-  mailer.checkForThreshold("dkopelevich@che.ufl.edu", oldval, item.count, item.restockThreshold, item.title);
-  mailer.inspectOrBrokenCheck("dkopelevich@che.ufl.edu", oldStatus, item.workingStatus, item.title);
+  mailer.checkForThreshold('dkopelevich@che.ufl.edu', oldval, item.count, item.restockThreshold, item.title);
+  mailer.inspectOrBrokenCheck('dkopelevich@che.ufl.edu', oldStatus, item.workingStatus, item.title);
   item.save(function (err) {
     if (err) {
       return res.status(422).send({
